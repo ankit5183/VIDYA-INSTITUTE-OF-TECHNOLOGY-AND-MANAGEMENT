@@ -1,0 +1,7 @@
+#validation rule for passing marks
+Passing_Marks__c  < 200  ||  Passing_Marks__c  > 200
+
+  
+#validation rule for total marks
+Total_Marks__c  < 400    ||     Total_Marks__c  > 400
+  
