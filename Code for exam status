@@ -1,0 +1,16 @@
+# Apex Code for exam status
+public class ExamStatusUpdater {
+    public static void updateExamStatus(List<Exam__c> examResult) {
+        for(Exam__c exam : examResult) {
+            if(exam.Obtained_Marks__c != null) {
+                
+                if(exam.Obtained_Marks__c >= 200) {
+                    exam.Result_Status__c = 'passed';
+                }
+                else {
+                    exam.Result_Status__c = 'Failed';
+                }
+            }
+        }
+    }
+}
