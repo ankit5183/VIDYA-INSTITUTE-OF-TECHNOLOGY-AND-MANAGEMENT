@@ -1,0 +1,35 @@
+#Apex code for calculatetotal fee 
+public class TotalAmountUpdater {
+    public static void updateTotalFee(List<Fee_Structure__c> enrollments) {
+        Map<String, Decimal> courseCost = new Map<String, Decimal> { 
+        
+        'Java Course' => 40000,
+        'Python Course' => 45000,
+        'VlsiDesign Course' => 35000,
+        'Generative AI Course' => 48000,
+        'Finance Course' => 50000,
+        'Marketing Course' => 60000  
+     };      
+     
+         for(Fee_Structure__c enrollment : enrollments) {
+             Decimal totalAmount = 0;
+             
+             if(enrollment.Course_select__c != null) {
+                 List<String> selectedCourse = enrollment.Course_select__c.split(';');
+                 
+                 for(String coursename : selectedCourse) {
+                     if(courseCost.containsKey(courseName)) {
+                         totalAmount += courseCost.get(courseName);
+                     }
+                 }
+             }
+               Decimal examfee = 8000; 
+               enrollment.Total_fees_Amount__c = totalAmount + examfee;
+         }           
+}
+}
+
+# Apex trigger
+trigger UpdatetotalTrigger on Fee_Structure__c (before insert, before update) {
+    TotalAmountUpdater.updateTotalFee(Trigger.new);
+}
