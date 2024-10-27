@@ -14,3 +14,14 @@ public class ExamStatusUpdater {
         }
     }
 }
+
+
+
+#Apex Trigger for exam status
+trigger ExamStatusTrigger on Exam__c (before insert, before update, after insert, after update) {
+    if(trigger.isBefore){ 
+        if(trigger.isInsert || trigger.isUpdate) {  
+    ExamStatusUpdater.updateExamStatus(Trigger.new);
+}
+ }
+}
